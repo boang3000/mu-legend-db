@@ -1,19 +1,30 @@
-var releaseApp = angular.module('releaseApp', ['ngAnimate', 'ui.bootstrap']);
+var releaseApp = angular.module('releaseApp', [
+    'ngAnimate', 
+    'ui.bootstrap',
+    'angular.filter',
+    'hj.imagesLoaded',
+    'ngSanitize',
+    'ngStorage',
+    'ui.bootstrap',
+    'ui.router.state.events',
+    'ui.router',
+    'ui.select'
+]);
 releaseApp.controller('releaseCtrl', function($scope, $http, $filter) {
     $scope.data = [];
     $scope.titleQuery = '';
-    $http.get('compiled.json').then(function(response) {
+    $http.get('../../api/compiled.json').then(function(response) {
         $scope.data = $scope.sortMe(response.data, 'name', true);
     });
     $scope.isCollapsed = true;
     $scope.resetHeight = false;
     $scope.type = [];
 
-    $http.get('tags.json').then(function(response) {
+    $http.get('../../api/tags.json').then(function(response) {
         $scope.tags = angular.fromJson(response.data);
     });
 
-    $http.get('songs.json').then(function(response) {
+    $http.get('../../api/songs.json').then(function(response) {
         $scope.songs = angular.fromJson(response.data);
         $scope.songID = Math.floor(Math.random() * 19);
     });
